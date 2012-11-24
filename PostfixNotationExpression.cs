@@ -28,6 +28,11 @@ namespace Stack_machine
                                 outputSeparated.Add(outputString);
                                 outputString = stack.Pop();
                             }
+                            if ((0 < stack.Count) && (this.IsFunction(stack.Peek())))
+                            {
+                                outputString = stack.Pop();
+                                outputSeparated.Add(outputString);
+                            }
                         }
                         else
                         {
