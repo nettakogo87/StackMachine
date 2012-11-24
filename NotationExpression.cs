@@ -12,8 +12,10 @@ namespace Stack_machine
     abstract public class NotationExpression
     {
         private List<Operator> operators;
+        private List<string> functions;
         public NotationExpression()
         {
+            this.functions = new List<string>(new string[] {"exp", "abs", "sin", "cos", "tan", "atn", "sqr"});
             this.operators = new List<Operator>();
             string allText = System.IO.File.ReadAllText(@"def.txt");
             string[] constrain = {"\r\n"};
@@ -70,6 +72,11 @@ namespace Stack_machine
                 }
             }
             return -1;
+        }
+
+        protected bool IsFunction(string input)
+        {
+            return this.functions.Contains(input);
         }
     }
 }
