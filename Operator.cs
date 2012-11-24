@@ -12,13 +12,15 @@ namespace Stack_machine
 {
     public class Operator
     {
-        public Operator(string symbol, string associativity)
+        public Operator(string symbol, int priority, string associativity)
         {
             this.symbol = symbol;
             this.associativity = associativity;
+            this.priority = priority;
         }
         private string symbol;
         private string associativity;
+        private int priority;
 
         public string Symbol
         {
@@ -27,6 +29,10 @@ namespace Stack_machine
         public string Associativity
         {
             get { return this.associativity; }
+        }
+        public int Priority
+        {
+            get { return this.priority; }
         }
     }
 }
