@@ -29,11 +29,9 @@ namespace Stack_machine
                                 outputString = stack.Pop();
                             }
                         }
-                        else if (this.GetPriority(newChar) >= this.GetPriority(stack.Peek()))
-                            stack.Push(newChar);
                         else
                         {
-                            while (stack.Count > 0 && GetPriority(newChar) < GetPriority(stack.Peek()))
+                            while (stack.Count > 0 && this.GetPriority(newChar) <= this.GetPriority(stack.Peek()))
                                 outputSeparated.Add(stack.Pop());
                             stack.Push(newChar);
                         }
@@ -41,7 +39,11 @@ namespace Stack_machine
                     else
                         stack.Push(newChar);
                 }
-                else
+                else if (this.IsFunction(newChar.ToLower()))
+                {
+                    stack.Push(newChar);
+                }
+                else 
                     outputSeparated.Add(newChar);
             }
             if (stack.Count > 0)
