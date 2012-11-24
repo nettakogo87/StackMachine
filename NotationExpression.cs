@@ -9,7 +9,7 @@ using System.IO;
  */
 namespace Stack_machine
 {
-    abstract class NotationExpression
+    abstract public class NotationExpression
     {
         private List<Operator> operators;
         public NotationExpression()
@@ -21,7 +21,7 @@ namespace Stack_machine
             for (int i = 0; i < operations.Length; i++)
             {
                 string[] strMass = operations[i].Split(' ');
-                Operator newOperator = new Operator(strMass[0], strMass[1]);
+                Operator newOperator = new Operator(strMass[0], Convert.ToInt16(strMass[1]), strMass[2]);
                 this.operators.Add(newOperator);
             }
            
@@ -49,7 +49,7 @@ namespace Stack_machine
                 position += output.Length;
             }
         }
-        private bool ContainsOperation(string input)
+        protected bool ContainsOperation(string input)
         {
             foreach (Operator oper in this.operators)
             {
@@ -59,6 +59,17 @@ namespace Stack_machine
                 }
             }
             return false;
+        }
+        protected int GetPriority(string input)
+        {
+            foreach (Operator oper in this.operators)
+            {
+                if (oper.Symbol == input)
+                {
+                    return oper.Priority;
+                }
+            }
+            return -1;
         }
     }
 }
