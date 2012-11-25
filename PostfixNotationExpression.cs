@@ -26,7 +26,14 @@ namespace Stack_machine
                             while (outputString != "(")
                             {
                                 outputSeparated.Add(outputString);
-                                outputString = stack.Pop();
+                                try
+                                {
+                                    outputString = stack.Pop();
+                                }
+                                catch
+                                {
+                                    throw new NotMatchedBracketsException();
+                                }
                             }
                             if ((0 < stack.Count) && (this.IsFunction(stack.Peek())))
                             {
@@ -48,14 +55,23 @@ namespace Stack_machine
                 {
                     stack.Push(newChar);
                 }
-                else 
+                else
+                {
                     outputSeparated.Add(newChar);
+                }
             }
             if (stack.Count > 0)
                 foreach (string c in stack)
+                {
+                    if ("(" == c)
+                    {
+                        throw new NotMatchedBracketsException();
+                    }
                     outputSeparated.Add(c);
+                }
 
             return outputSeparated.ToArray();
         }
     }
+    
 }
